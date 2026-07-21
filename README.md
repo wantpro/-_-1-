@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | `크롤링_차서연/` | 네이버 카페 게시글 목록·본문 수집 및 단어 빈도 분석 | Python, Selenium, pandas, Kiwi |
 | `크롤링_최비성/` | 공개 커뮤니티·앱 스토어 수집과 웨딩 주제 수요 분석 | Node.js, Playwright, 스토어 수집 라이브러리 |
+| `크롤링_박수진/` | DC인사이드 결혼 갤러리·결직웨딩 후기 수집 및 한국어 이슈 분석 | Python, requests, BeautifulSoup |
 
 ## 네이버 카페 수집과 단어 분석
 
@@ -18,6 +19,29 @@
 3. `word_frequency.py` — 본문에서 명사와 외국어 단어를 추출하고, 불용어를 제외해 게시글별·전체 단어 빈도를 만듭니다.
 
 수집 과정에서 URL 형식을 정규화하고, 잘못된 제목·중복 게시글·접근 제한 게시글을 걸러냅니다. 결과 파일은 기본적으로 사용자 다운로드 폴더에 CSV 형식으로 저장됩니다. 네이버 카페의 이용 약관과 접근 권한을 준수해야 하며, 로그인이나 접근 제한을 우회하지 않습니다.
+
+## DC인사이드·결직웨딩 수집과 통합 보고서
+
+`크롤링_박수진/`은 DC인사이드 결혼 갤러리와 결직웨딩 후기 게시판의 상세 본문을 수집하고, 추가비용·계약·환불·서비스 품질처럼 반복되는 웨딩 준비 이슈를 쉬운 한국어로 분류합니다.
+
+- `crawling_dc.py` — DC인사이드 관련 게시글과 상세 본문을 수집합니다.
+- `crawling_kgwed.py` — 결직웨딩 후기 목록과 상세 본문을 수집합니다.
+- `quality_rules.py` — 서비스와 이슈를 한국어 키워드 규칙으로 분류합니다.
+- `build_reports.py` — 저장된 본문을 다시 분석해 통합 HTML·CSV 보고서를 만듭니다.
+
+```bash
+cd 크롤링_박수진
+python -m pip install beautifulsoup4 requests urllib3
+
+# 새 게시글 수집
+python crawling_dc.py
+python crawling_kgwed.py
+
+# 저장된 본문으로 보고서 다시 생성
+python build_reports.py
+```
+
+완성된 보고서는 `reports/wedding_crawling_summary.html`에서 한눈에 확인할 수 있고, 같은 분석 결과를 `reports/wedding_crawling_summary.csv`로도 제공합니다.
 
 ## 공개 웹·앱 스토어 수집과 웨딩 수요 분석
 
