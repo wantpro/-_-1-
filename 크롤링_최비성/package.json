@@ -1,0 +1,22 @@
+{
+  "name": "pain-minor-crawler",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "공개 웹·앱 스토어 수집기와 원본 데이터 보관소",
+  "scripts": {
+    "web:blind": "node src/web/blind.js",
+    "web:dcinside": "node src/web/dcinside.js",
+    "web:daangn": "node src/web/daangn.js",
+    "web:threads": "node src/web/threads.js",
+    "stores:google-play": "node src/stores/google-play.js",
+    "stores:app-store": "node src/stores/app-store.js",
+    "analysis:run": "node src/analysis/run-pipeline.js",
+    "analysis:wordcloud": "node src/analysis/wordcloud.js"
+  },
+  "dependencies": {
+    "app-store-scraper": "^0.18.0",
+    "google-play-scraper": "^10.0.0",
+    "playwright": "^1.61.1"
+  }
+}
